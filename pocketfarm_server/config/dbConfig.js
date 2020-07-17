@@ -5,7 +5,7 @@ const dbConfig = {
     port: 3306,
     user: 'admin',
     password: 'pocket123',
-    database: 'db-pocketfarm-server',
+    database: 'pocketfarm',
     dateStrings: 'date',
 }
 
