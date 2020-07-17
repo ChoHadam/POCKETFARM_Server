@@ -1,0 +1,6 @@
+#config 파일
+config/*
+dbConfig.js
+
+#package
+package-lock.json
