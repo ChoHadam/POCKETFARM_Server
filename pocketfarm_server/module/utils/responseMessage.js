@@ -32,8 +32,11 @@ module.exports = {
     BOARD_UPDATE_FAIL: "게시글 수정 실패",
     BOARD_DELETE_SUCCESS: "게시글 삭제 성공",
     BOARD_DELETE_FAIL: "게시글 삭제 실패",
+    BOARD_RESERVE_SUCCESS: "예약 성공",
+    BOARD_RESERVE_FAIL: "예약 실패",
     BOARD_EMPTY: "게시글이 없습니다",
     NO_BOARD: "존재하지 않은 게시글 입니다",
+    
 
     SEARCH_SUCCESS: "검색 성공",
     SEARCH_FAIL: "검색 실패",

@@ -4,6 +4,8 @@ const pool = require('../module/db/pool');
 const table1 = 'User';
 const table2 = 'Board';
 const table3 = 'Farm';
+const table4 = 'Reservation';
+const table5 = 'Donation'
 
 module.exports = {
     readAll: async() => {
@@ -25,5 +27,17 @@ module.exports = {
         const fields = 'farmImg, farmContent,name, userImg, description';
         const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} NATURAL JOIN ${table3} NATURAL JOIN ${table1} WHERE boardIdx = ${boardIdx}`)
         return result;
+    },
+    reserve: async(json) => {
+        const fields = 'amount, price, ea, donatePoint, baeminPoint, userIdx, boardIdx';
+        const questions = `"${json.amount}", "${json.price}", "${json.ea}", "${json.donatePoint}", ${json.baeminPoint}, ${json.userIdx}, ${json.boardIdx}`;
+        let result = await pool.queryParam_None(`INSERT INTO ${table4}(${fields}) VALUES(${questions})`);
+        return result;
+    },
+    updateDonations: async(donatePointInt) => {
+        const result = await pool.queryParam_None(`UPDATE ${table5} SET currentPrice = currentPrice + ${donatePointInt} WHERE donationIdx = 1`)
+    },
+    updateCurrentAmount: async(json) => {
+        const result = await pool.queryParam_None(`UPDATE ${table2} SET currentAmount = currentAmount + ${json.totalAmount} WHERE boardIdx = ${json.boardIdx}`)
     },
 };

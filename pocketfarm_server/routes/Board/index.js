@@ -100,4 +100,40 @@ router.get("/farm/:boardIdx", async(req, res) => {
     res.status(statusCode.OK).send(utils.successTrue(statusCode.OK,responseMessage.BOARD_READ_SUCCESS, result[0]));
 });
 
+//예약하기
+router.post('/reserve/boardIdx/:boardIdx/userIdx/:userIdx', async (req, res) => {
+    var {amount, price, ea, donatePoint, baeminPoint} = req.body;
+    const userIdx = req.params.userIdx;
+    const boardIdx = req.params.boardIdx;
+
+
+    if(!amount || !price || !ea || !donatePoint || !baeminPoint) {
+        const missParameters = Object.entries({amount, price, ea, donatePoint, baeminPoint})
+        .filter(it => it[1] == undefined).map(it => it[0]).join(',');
+
+        res.status(statusCode.BAD_REQUEST).send(utils.successFalse(statusCode.BAD_REQUEST, responseMessage.X_NULL_VALUE(missParameters)));
+        return;
+    }
+    
+    const json = {amount, price, ea, donatePoint, baeminPoint, userIdx, boardIdx};
+
+    var result = await Board.reserve(json);
+    
+    if(result.length == 0) {
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(utils.successFalse(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BOARD_RESERVE_FAIL));
+        return;
+    }
+
+    var donatePointInt = parseInt(donatePoint.replace(',','')) //가격(String타입)에 있는 콤마(,) 제거
+    const result2 = await Board.updateDonations(donatePointInt); 
+    //console.log(donatePointInt)
+
+    var totalAmount = ea * amount
+    const json2 = {totalAmount, boardIdx};
+    const result3 = await Board.updateCurrentAmount(json2);
+    //console.log(totalAmount)
+
+    res.status(statusCode.OK).send(utils.successTrue(statusCode.OK, responseMessage.BOARD_RESERVE_SUCCESS, result[0]));
+});
+
 module.exports = router;
