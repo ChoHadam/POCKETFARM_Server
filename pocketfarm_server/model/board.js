@@ -3,6 +3,7 @@ const pool = require('../module/db/pool');
 //const moment_timezone = require('moment-timezone');
 const table1 = 'User';
 const table2 = 'Board';
+const table3 = 'Farm';
 
 module.exports = {
     readAll: async() => {
@@ -18,6 +19,11 @@ module.exports = {
     readGoods: async(boardIdx) => {
         const fields = 'goodsImg, goodsContent';
         const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} WHERE boardIdx = ${boardIdx}`)
+        return result;
+    },
+    readFarm: async(boardIdx) => {
+        const fields = 'farmImg, farmContent,name, userImg, description';
+        const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} NATURAL JOIN ${table3} NATURAL JOIN ${table1} WHERE boardIdx = ${boardIdx}`)
         return result;
     },
 };
