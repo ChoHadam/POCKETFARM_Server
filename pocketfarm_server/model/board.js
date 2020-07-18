@@ -15,4 +15,9 @@ module.exports = {
         const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} WHERE boardIdx = ${boardIdx}`)
         return result;
     },
+    readGoods: async(boardIdx) => {
+        const fields = 'goodsImg, goodsContent';
+        const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} WHERE boardIdx = ${boardIdx}`)
+        return result;
+    },
 };

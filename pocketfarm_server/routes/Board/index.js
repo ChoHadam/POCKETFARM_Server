@@ -33,7 +33,7 @@ router.get("/boardAll", async (req, res) => {
     res.status(statusCode.OK).send(utils.successTrue(statusCode.OK,responseMessage.BOARD_READ_ALL_SUCCESS, result));
 });
 
-// 게시글 하나 보기
+// 게시글 상품 상세 조회
 router.get("/:boardIdx", async(req, res) => {
     const boardIdx = req.params.boardIdx;
 
@@ -54,6 +54,27 @@ router.get("/:boardIdx", async(req, res) => {
     //const goalAmount = result[0].goalAmount
     //const currentAmount = result[0].currentAmount
     //const goalRate = currentAmount / goalAmount * 100
+
+    res.status(statusCode.OK).send(utils.successTrue(statusCode.OK,responseMessage.BOARD_READ_SUCCESS, result[0]));
+});
+
+// 게시글 상품 소개 조회
+router.get("/goods/:boardIdx", async(req, res) => {
+    const boardIdx = req.params.boardIdx;
+
+    if(!boardIdx)
+    {
+    res.status(statusCode.BAD_REQUEST).send(utils.successFalse(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+    return;
+    }
+
+    var result = await Board.readGoods(boardIdx);
+
+    if(result.length == 0)
+    {
+    res.status(statusCode.INTERNAL_SERVER_ERROR).send(utils.successFalse(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BOARD_READ_FAIL));
+    return;
+    }
 
     res.status(statusCode.OK).send(utils.successTrue(statusCode.OK,responseMessage.BOARD_READ_SUCCESS, result[0]));
 });
