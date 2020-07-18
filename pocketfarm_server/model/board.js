@@ -10,4 +10,9 @@ module.exports = {
         const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} ORDER BY likeNum desc`)
         return result;
     },
+    read: async(boardIdx) => {
+        const fields = 'boardImg, category, tag, title, price1, price2, price3, amount1, amount2, amount3, goalAmount, currentAmount, period, deliverDate';
+        const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} WHERE boardIdx = ${boardIdx}`)
+        return result;
+    },
 };
