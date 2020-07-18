@@ -28,9 +28,9 @@ router.get("/donations", async (req, res) => {
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(utils.successFalse(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BOARD_READ_ALL_FAIL));
         return;
     }
-    const goalPrice = result[0].goalPrice
-    const currentPrice = result[0].currentPrice
-    const archiveRate = parseInt(currentPrice) / parseInt(goalPrice) * 100 +1
+    const goalPrice = result[0].goalPrice.replace(',','')
+    const currentPrice = result[0].currentPrice.replace(',','')
+    const archiveRate = Math.ceil(parseFloat(currentPrice) / parseFloat(goalPrice) * 100.00)
 
     finalResult = {goalPrice, currentPrice, archiveRate}
 

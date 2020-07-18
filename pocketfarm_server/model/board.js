@@ -5,7 +5,8 @@ const table1 = 'User';
 const table2 = 'Board';
 const table3 = 'Farm';
 const table4 = 'Reservation';
-const table5 = 'Donation'
+const table5 = 'Donation';
+const table6 = 'Review';
 
 module.exports = {
     readAll: async() => {
@@ -36,8 +37,15 @@ module.exports = {
     },
     updateDonations: async(donatePointInt) => {
         const result = await pool.queryParam_None(`UPDATE ${table5} SET currentPrice = currentPrice + ${donatePointInt} WHERE donationIdx = 1`)
+        return result;
     },
     updateCurrentAmount: async(json) => {
         const result = await pool.queryParam_None(`UPDATE ${table2} SET currentAmount = currentAmount + ${json.totalAmount} WHERE boardIdx = ${json.boardIdx}`)
+        return result;
     },
+    readReviews: async(boardIdx) => { 
+        const fields = 'reviewIdx, reviewImg, reviewContent, starScore, nickname, userId, AVG(starScore) AS averageScore'
+        const result = await pool.queryParam_None(`SELECT ${fields}  FROM ${table6} NATURAL JOIN ${table1} WHERE boardIdx = ${boardIdx} GROUP BY reviewIdx`)
+        return result;
+    },                     
 };
