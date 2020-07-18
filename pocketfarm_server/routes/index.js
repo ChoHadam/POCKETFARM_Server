@@ -4,7 +4,7 @@ var router = express.Router({mergeParams: true});
 
 router.use('/user', require('./User'));
 router.use('/board', require('./Board'));
-//router.use('/mypage', require('./Mypage'));
+router.use('/mypage', require('./Mypage'));
 router.use('/home', require('./Home'));
 
 /* GET home page. */
