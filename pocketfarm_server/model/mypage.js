@@ -11,7 +11,7 @@ module.exports = {
     },
     readMyReserve: async(userIdx) => {
         const fields = 'reserveIdx, Reservation.boardIdx, title, boardImg, progressRate, remainPeriod';
-        const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} JOIN ${table3} ON ${table2}.boardIdx = ${table3}.boardIdx WHERE Reservation.userIdx = ${userIdx}`)
+        const result = await pool.queryParam_None(`SELECT ${fields} FROM ${table2} JOIN ${table3} ON ${table2}.boardIdx = ${table3}.boardIdx WHERE Reservation.userIdx = ${userIdx} ORDER BY reserveIdx desc`)
         return result;
     }
 };
