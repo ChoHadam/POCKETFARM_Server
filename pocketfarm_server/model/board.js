@@ -36,7 +36,16 @@ module.exports = {
         return result;
     },
     updateDonations: async(donatePointInt) => {
-        const result = await pool.queryParam_None(`UPDATE ${table5} SET currentPrice = currentPrice + ${donatePointInt} WHERE donationIdx = 1`)
+        const semiResult = await pool.queryParam_None(`SELECT currentPrice FROM ${table5} WHERE donationIdx = 1`)
+        console.log(semiResult)
+        const currentPriceInt = parseInt(semiResult[0].currentPrice.replace(/,/g,''))
+        console.log(currentPriceInt)
+        const sumInt = currentPriceInt + donatePointInt
+        console.log(sumInt)
+        const sumStr = sumInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        console.log(sumStr)
+        
+        const result = await pool.queryParam_None(`UPDATE ${table5} SET currentPrice = '${sumStr}' WHERE donationIdx = 1`)
         return result;
     },
     updateCurrentAmount: async(json) => {

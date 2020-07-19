@@ -118,13 +118,13 @@ router.post('/reserve/boardIdx/:boardIdx/userIdx/:userIdx', async (req, res) => 
     const json = {amount, price, ea, donatePoint, baeminPoint, userIdx, boardIdx};
 
     var result = await Board.reserve(json);
-    
+    //console.log(result)
     if(result.length == 0) {
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(utils.successFalse(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BOARD_RESERVE_FAIL));
         return;
     }
 
-    var donatePointInt = parseInt(donatePoint.replace(',','')) //가격(String타입)에 있는 콤마(,) 제거
+    var donatePointInt = parseInt(donatePoint.replace(/,/g,'')) //가격(String타입)에 있는 콤마(,) 제거
     const result2 = await Board.updateDonations(donatePointInt); 
     //console.log(donatePointInt)
 
