@@ -118,7 +118,7 @@ router.post('/reserve/boardIdx/:boardIdx/userIdx/:userIdx', async (req, res) => 
     const json = {amount, price, ea, donatePoint, baeminPoint, userIdx, boardIdx};
 
     var result = await Board.reserve(json);
-    //console.log(result)
+    
     if(result.length == 0) {
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(utils.successFalse(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BOARD_RESERVE_FAIL));
         return;

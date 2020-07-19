@@ -51,6 +51,9 @@ module.exports = {
     MYPAGE_UPDATE_FAIL: "마이페이지 수정 실패",
     RESERVATION_READ_ALL_SUCCESS: "예약 전체 조회 성공",
     RESERVATION_READ_ALL_FAIL: "예약 전체 조회 실패",
+    RESERVATION_READ_SUCCESS: "예약 상세 조회 성공",
+    RESERVATION_READ_FAIL: "예약 상세 조회 실패",
+    
 
     X_NULL_VALUE: (x) => `${x}가 존재하지 않습니다`,
     X_CREATE_SUCCESS: (x) => `${x} 작성 성공`,
