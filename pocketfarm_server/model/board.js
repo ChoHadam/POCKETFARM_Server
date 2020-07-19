@@ -37,13 +37,11 @@ module.exports = {
     },
     updateDonations: async(donatePointInt) => {
         const semiResult = await pool.queryParam_None(`SELECT currentPrice FROM ${table5} WHERE donationIdx = 1`)
-        console.log(semiResult)
+        
+        // 콤마(,) 있는  currentPrice 금액(srt)을 int 변환 -> 합산 후 다시 str로 변환
         const currentPriceInt = parseInt(semiResult[0].currentPrice.replace(/,/g,''))
-        console.log(currentPriceInt)
         const sumInt = currentPriceInt + donatePointInt
-        console.log(sumInt)
         const sumStr = sumInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        console.log(sumStr)
         
         const result = await pool.queryParam_None(`UPDATE ${table5} SET currentPrice = '${sumStr}' WHERE donationIdx = 1`)
         return result;

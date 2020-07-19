@@ -38,7 +38,9 @@ module.exports = {
     REVIEW_READ_FAIL: "리뷰 목록 조회 실패",
     BOARD_EMPTY: "게시글이 없습니다",
     NO_BOARD: "존재하지 않은 게시글 입니다",
-    
+
+    DONATION_READ_SUCCESS:"기부 현황 조회 성공",
+    DONATION_READ_FAIL:"기부 현황 조회 실패",
 
     SEARCH_SUCCESS: "검색 성공",
     SEARCH_FAIL: "검색 실패",
